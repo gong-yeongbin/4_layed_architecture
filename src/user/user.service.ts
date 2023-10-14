@@ -4,10 +4,10 @@ import { UserRepository } from './user.repository';
 @Injectable()
 export class UserService {
   constructor(
-    @Inject('USER_REPO')
+    @Inject('UserRepository')
     private readonly userRepository: UserRepository,
   ) {}
   findUser() {
-    this.userRepository.findById(1);
+    this.userRepository.findOne(1);
   }
 }
