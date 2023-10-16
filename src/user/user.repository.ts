@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { User } from '../entities/user';
-import { InjectRepository } from '@nestjs/typeorm';
 import { IUserRepository } from './user.interface';
 
 @Injectable()
-export class UserRepository implements IUserRepository {
-  constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+export class UserRepository
+  extends Repository<User>
+  implements IUserRepository
+{
+  constructor(private dataSource: DataSource) {
+    super(User, dataSource.createEntityManager());
+  }
 
-  findOne(id: number): Promise<User> {
-    return this.userRepository.findOne({ where: { id: id } });
+  async createUser(user: User) {
+    await this.insert(user);
   }
 }

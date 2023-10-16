@@ -7,4 +7,7 @@ export class User {
 
   @Column({ name: 'name', type: 'varchar' })
   name: string;
+
+  @Column({ name: 'age', type: 'integer' })
+  age: number;
 }
