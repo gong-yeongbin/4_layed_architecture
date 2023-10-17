@@ -1,5 +1,5 @@
-import { User } from '../entities/user';
-
 export interface IUserRepository {
-  createUser(user: User);
+	findOneUser(name: string): Promise<{ name: string; age: number; job: string }>;
+
+	createUser(createUserDto: { name: string; age: number; job: string }): Promise<{ name: string; age: number; job: string }>;
 }
